@@ -1,0 +1,39 @@
+
+CREATE TABLE patients (
+  patient_id INTEGER PRIMARY KEY,
+  first_name TEXT,
+  last_name TEXT,
+  gender TEXT,
+  birth_date DATE
+);
+
+CREATE TABLE visits (
+  visit_id INTEGER PRIMARY KEY,
+  patient_id INTEGER,
+  visit_date DATE,
+  FOREIGN KEY (patient_id) REFERENCES patients(patient_id)
+);
+
+CREATE TABLE diagnoses (
+  diagnosis_id INTEGER PRIMARY KEY,
+  visit_id INTEGER,
+  icd10_code TEXT,
+  FOREIGN KEY (visit_id) REFERENCES visits(visit_id)
+);
+
+CREATE TABLE labs (
+  lab_id INTEGER PRIMARY KEY,
+  visit_id INTEGER,
+  result_date DATE,
+  loinc_code TEXT,
+  result_value TEXT,
+  FOREIGN KEY (visit_id) REFERENCES visits(visit_id)
+);
+
+CREATE TABLE medications (
+  medication_id INTEGER PRIMARY KEY,
+  visit_id INTEGER,
+  medication_name TEXT,
+  date_prescribed DATE,
+  FOREIGN KEY (visit_id) REFERENCES visits(visit_id)
+);
